@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    maxlength = 128
+    name = models.CharField(max_length=maxlength, unique=True)
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
