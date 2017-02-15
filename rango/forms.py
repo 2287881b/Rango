@@ -1,5 +1,6 @@
 from django import forms
-from rango.models import Page, Category
+from django.contrib.auth.models import User
+from rango.models import Page, Category, UserProfile
 
 class CategoryForm(forms.ModelForm):
 
@@ -48,3 +49,22 @@ class PageForm(forms.ModelForm):
             url = 'http://' + url
             cleaned_data['url'] = url
             return cleaned_data
+
+
+class UserForm(forms.ModelForm):
+    # This masks the password as it is typed, instead of the default
+    # behaviour of displaying the password in plain text
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    # Nested Meta class - describes additional poperties.
+    # Each Meta class must supply a model field.
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+        ## could also have fields to exclude here
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('website', 'picture')
